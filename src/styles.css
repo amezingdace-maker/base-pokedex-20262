@@ -1,0 +1,1137 @@
+:root {
+  font-family: 'Silkscreen', 'Courier New', monospace;
+  color: #f4e9ca;
+  background: #81b6d0;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background: #81b6d0;
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: wait; opacity: .75; }
+:focus-visible { outline: 3px solid #f1d878; outline-offset: 4px; }
+[hidden] { display: none !important; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.page-frame {
+  position: relative;
+  z-index: 1;
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 22px;
+  padding: 18px 23px;
+  border: 5px solid #183c34;
+  background: #25473d;
+  box-shadow: 8px 8px 0 #173b33;
+}
+
+.brand, .topbar__right { display: flex; align-items: center; }
+.brand { gap: 16px; }
+.brand__icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 4px solid #e7cf83;
+  background: #325b3a;
+  color: #f1d878;
+  box-shadow: 5px 5px 0 #0d1b14, inset -4px -4px 0 #23432c;
+  font-size: 30px;
+}
+
+.eyebrow, .panel-kicker, .field-label {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .16em;
+}
+.eyebrow { color: #ddc77e; }
+.brand h1 {
+  margin: 3px 0 0;
+  font-family: 'Press Start 2P', 'Silkscreen', monospace;
+  font-size: clamp(20px, 3vw, 29px);
+  line-height: 1.25;
+  letter-spacing: 0;
+  text-shadow: 4px 4px 0 #0a1710;
+}
+.topbar__right { gap: 22px; }
+.hearts { color: #e07370; font-size: 23px; letter-spacing: .1em; text-shadow: 3px 3px 0 #611e27; }
+.topbar__tag {
+  padding: 11px 13px;
+  border: 2px solid #8ba86e;
+  color: #d7e0af;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: .1em;
+}
+
+.world-backdrop {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(#79afd1 0 43%, #a9d4d7 43% 66%, #8ebc85 66% 70%, #537f5a 70% 100%);
+}
+.world-backdrop::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 18%;
+  border-top: 12px solid #477b4b;
+  background: repeating-conic-gradient(#987650 0% 25%, #b99460 0% 50%) 0 0 / 32px 32px;
+}
+.world-backdrop__sun {
+  position: absolute;
+  top: 11%;
+  right: 9%;
+  width: 76px;
+  height: 76px;
+  border: 8px solid #e7bd67;
+  background: #ffe9a2;
+  box-shadow: 0 0 0 12px #fff0bd55, 8px 8px 0 #597f7766;
+  animation: sky-sun-bob 7s steps(5, end) infinite;
+}
+.world-backdrop__cloud,
+.hero-landscape__cloud {
+  position: absolute;
+  background: linear-gradient(#fffbe6 0 62%, #d8e9de 62%);
+  clip-path: polygon(0 100%, 0 58%, 13% 58%, 13% 28%, 27% 28%, 27% 0, 68% 0, 68% 28%, 85% 28%, 85% 58%, 100% 58%, 100% 100%);
+  animation: cloud-walk 12s steps(8, end) infinite;
+}
+.world-backdrop__cloud { width: 145px; height: 58px; opacity: .88; }
+.world-backdrop__cloud--one { top: 13%; left: 4%; }
+.world-backdrop__cloud--two { top: 29%; right: 3%; transform: scale(.7); animation-delay: -5s; }
+.world-backdrop__cloud--three { top: 38%; left: 15%; transform: scale(.55); animation-delay: -8s; }
+.world-backdrop__hill {
+  position: absolute;
+  bottom: 17%;
+  width: 34%;
+  height: 35%;
+  background: repeating-linear-gradient(90deg, #4f875c 0 24px, #609769 24px 48px);
+  clip-path: polygon(0 100%, 0 69%, 10% 69%, 10% 48%, 23% 48%, 23% 29%, 37% 29%, 37% 12%, 53% 12%, 53% 28%, 68% 28%, 68% 48%, 82% 48%, 82% 70%, 100% 70%, 100% 100%);
+}
+.world-backdrop__hill--left { left: -7%; }
+.world-backdrop__hill--right { right: -8%; transform: scaleX(-1); }
+
+.hero-landscape {
+  position: relative;
+  height: 190px;
+  margin: 18px 0 24px;
+  overflow: hidden;
+  border: 6px solid #244738;
+  background: repeating-linear-gradient(90deg, #88bdd5 0 80px, #9acbdd 80px 160px);
+  box-shadow: 8px 8px 0 #315848;
+}
+.hero-landscape__sun {
+  position: absolute;
+  top: 22px;
+  right: 20%;
+  width: 54px;
+  height: 54px;
+  border: 6px solid #e8c36c;
+  background: #ffedac;
+  box-shadow: 0 0 0 8px #fff3c061;
+  animation: sky-sun-bob 5s steps(5, end) infinite;
+}
+.hero-landscape__cloud { width: 143px; height: 49px; }
+.hero-landscape__cloud--left { top: 19px; left: 10%; }
+.hero-landscape__cloud--right { top: 49px; right: 5%; transform: scale(.7); animation-delay: -5s; }
+.hero-landscape__hill {
+  position: absolute;
+  z-index: 1;
+  bottom: 26px;
+  width: 265px;
+  height: 130px;
+  background: repeating-linear-gradient(90deg, #5d9c69 0 27px, #79b074 27px 54px);
+  clip-path: polygon(0 100%, 0 78%, 10% 78%, 10% 55%, 24% 55%, 24% 34%, 42% 34%, 42% 17%, 57% 17%, 57% 35%, 73% 35%, 73% 57%, 89% 57%, 89% 78%, 100% 78%, 100% 100%);
+  animation: hill-breathe 8s steps(4, end) infinite;
+}
+.hero-landscape__hill--left { left: -18px; }
+.hero-landscape__hill--right { right: -18px; transform: scaleX(-1); animation-delay: -4s; }
+.hero-landscape__path {
+  position: absolute;
+  z-index: 2;
+  bottom: 25px;
+  left: 31%;
+  width: 38%;
+  height: 83px;
+  background: repeating-conic-gradient(#e3ca8b 0% 25%, #c9aa73 0% 50%) 0 0 / 24px 24px;
+  clip-path: polygon(45% 0, 55% 0, 100% 100%, 0 100%);
+  animation: path-shift 7s steps(7, end) infinite;
+}
+.hero-landscape__bush {
+  position: absolute;
+  z-index: 3;
+  bottom: 25px;
+  width: 113px;
+  height: 58px;
+  background: repeating-linear-gradient(90deg, #326b4d 0 17px, #4d8553 17px 34px);
+  clip-path: polygon(0 100%, 0 55%, 14% 55%, 14% 26%, 32% 26%, 32% 0, 55% 0, 55% 24%, 75% 24%, 75% 50%, 100% 50%, 100% 100%);
+  animation: bush-sway 4.5s steps(4, end) infinite;
+}
+.hero-landscape__bush--left { left: 9%; }
+.hero-landscape__bush--right { right: 10%; animation-delay: -2.2s; }
+.hero-landscape__ground {
+  position: absolute;
+  z-index: 4;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 32px;
+  border-top: 9px solid #3d794d;
+  background: repeating-conic-gradient(#98704a 0% 25%, #c0965e 0% 50%) 0 0 / 24px 24px;
+}
+@keyframes cloud-walk { 50% { translate: 18px -3px; } }
+@keyframes sky-sun-bob { 50% { translate: 0 5px; filter: brightness(1.12); } }
+@keyframes hill-breathe { 50% { translate: 0 4px; } }
+@keyframes path-shift { to { background-position: 24px 24px; } }
+@keyframes bush-sway { 50% { translate: 4px -2px; } }
+
+.game-frame {
+  overflow: hidden;
+  border: 6px solid #0d1d16;
+  background: #e9d8ac;
+  box-shadow: 0 0 0 4px #9eb36c, 0 0 0 8px #263e2a, 14px 17px 0 #0b1710;
+}
+.game-frame__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 10px 17px;
+  background: #263d2b;
+  border-bottom: 4px solid #15281d;
+  color: #e4d59e;
+  font-family: 'Press Start 2P', 'Silkscreen', monospace;
+  font-size: 9px;
+  font-weight: bold;
+  letter-spacing: 0;
+}
+
+.search-panel {
+  display: grid;
+  grid-template-columns: minmax(180px, .65fr) minmax(0, 1.35fr);
+  align-items: center;
+  gap: 25px;
+  padding: 22px 27px;
+  background: #365940;
+  border-bottom: 6px solid #203b2c;
+}
+.panel-kicker { color: #b99053; }
+.search-panel .panel-kicker { color: #e7cc7e; }
+.search-panel h2 { margin: 8px 0 0; color: #fff1c9; font-family: 'Press Start 2P', 'Silkscreen', monospace; font-size: clamp(13px, 1.7vw, 18px); line-height: 1.5; letter-spacing: 0; }
+.search-form {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  border: 4px solid #172d20;
+  background: #f3e8c4;
+  box-shadow: inset 4px 4px 0 #cbbf9a, 5px 5px 0 #193121;
+}
+.search-form__prompt { align-self: center; padding-left: 15px; color: #8d593c; font-size: 19px; }
+.search-form input {
+  width: 100%;
+  min-width: 0;
+  padding: 13px 10px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #253b2c;
+  font-size: 16px;
+  font-weight: bold;
+}
+.search-form input::placeholder { color: #788477; opacity: 1; }
+.search-form button {
+  flex: none;
+  margin: 4px;
+  padding: 0 16px;
+  border: 3px solid #263719;
+  background: #d1ad55;
+  color: #17271b;
+  box-shadow: inset -3px -3px 0 #a47834;
+  font-family: 'Press Start 2P', 'Silkscreen', monospace;
+  font-size: 10px;
+  font-weight: 900;
+}
+.search-form button:hover:not(:disabled) { background: #f0d47b; }
+.search-form button:active:not(:disabled) { transform: translate(2px, 2px); box-shadow: inset -1px -1px 0 #a47834; }
+
+.record { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); color: #213527; }
+.record__visual {
+  min-width: 0;
+  padding: 25px;
+  background: #b9c58d;
+  border-right: 6px solid #435f3d;
+}
+.scene {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 405px;
+  overflow: hidden;
+  border: 6px solid #263f2b;
+  background:
+    linear-gradient(#bad4ab44, #bad4ab44) top / 100% 40% no-repeat,
+    repeating-conic-gradient(#689754 0% 25%, #7daa61 0% 50%) 0 0 / 34px 34px;
+  box-shadow: 6px 6px 0 #84985f, inset 0 0 0 5px #dbe0b5;
+}
+.scene::before {
+  content: '';
+  position: absolute;
+  top: 24%;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: repeating-linear-gradient(90deg, #4f7b49 0 20px, #8bb66c 20px 35px);
+  box-shadow: 0 12px 0 #477241, 0 24px 0 #689754;
+  opacity: .75;
+}
+.scene__sky {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 24%;
+  background: repeating-linear-gradient(90deg, #91bca4 0 44px, #9dc6ad 44px 88px);
+  border-bottom: 9px solid #4c7043;
+}
+.scene__tree {
+  position: absolute;
+  z-index: 1;
+  bottom: 20%;
+  width: 92px;
+  height: 100px;
+  border: 7px solid #26492c;
+  background: #47793c;
+  box-shadow: inset 10px 10px 0 #6e9d50, inset -10px -10px 0 #315d34, 7px 8px 0 #35583b;
+}
+.scene__tree::after {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 93px;
+  width: 20px;
+  height: 34px;
+  background: #795741;
+  box-shadow: inset 6px 0 0 #aa7950;
+}
+.scene__tree--left { left: -33px; }
+.scene__tree--right { right: -31px; bottom: 31%; transform: scale(.75); }
+.scene__ground {
+  position: absolute;
+  bottom: 13%;
+  left: 17%;
+  width: 66%;
+  height: 23%;
+  border: 6px solid #598149;
+  background: repeating-conic-gradient(#8cb66d 0% 25%, #a4c780 0% 50%) 0 0 / 22px 22px;
+  transform: skew(-16deg);
+  box-shadow: 6px 7px 0 #44713d;
+}
+.scene__sprite {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 220px;
+  height: 220px;
+  margin-top: 65px;
+  background: radial-gradient(ellipse, #e9dfaa99 0 35%, transparent 68%);
+}
+.scene__sprite img {
+  width: min(100%, 185px);
+  height: 185px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(8px 11px 0 #24452966);
+  animation: sprite-float 2.4s steps(4, end) infinite;
+}
+.scene__sprite span { color: #314c30; font-size: 80px; font-weight: bold; }
+.scene__label {
+  position: absolute;
+  z-index: 3;
+  top: 18px;
+  left: 18px;
+  padding: 7px 9px;
+  border: 3px solid #192d23;
+  background: #f1e4b8;
+  color: #263e2b;
+  font-family: 'Press Start 2P', 'Silkscreen', monospace;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.5;
+  box-shadow: 4px 4px 0 #23432c;
+}
+.visual-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 20px;
+  color: #314b36;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: .07em;
+}
+.visual-caption strong { font-size: 19px; }
+
+.record__data { min-width: 0; padding: 27px 31px 30px; background: #f0e2b8; }
+.nameplate { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 17px; border-bottom: 4px double #9b8157; }
+.nameplate h2 { margin: 8px 0 0; font-family: 'Press Start 2P', 'Silkscreen', monospace; font-size: clamp(15px, 2.2vw, 24px); line-height: 1.5; letter-spacing: 0; overflow-wrap: anywhere; }
+.nameplate__star { color: #ac7838; font-size: 42px; }
+.field-label { color: #796c4c; }
+.type-row { display: flex; align-items: center; gap: 20px; min-height: 74px; border-bottom: 2px solid #bda777; }
+.type-list, .abilities { display: flex; flex-wrap: wrap; gap: 8px; }
+.type-badge, .ability-chip { display: inline-block; padding: 7px 10px; border: 2px solid #334b31; background: #d8dcb0; color: #263b27; font-size: 12px; font-weight: bold; text-transform: uppercase; box-shadow: 3px 3px 0 #baa77a; }
+.variety-row { display: grid; gap: 10px; padding: 15px 0 17px; border-bottom: 2px solid #bda777; }
+.variety-list { display: flex; flex-wrap: wrap; gap: 9px; }
+.variety-button {
+  padding: 8px 11px;
+  border: 2px solid #334b31;
+  background: #e9dfb8;
+  color: #263b27;
+  box-shadow: 3px 3px 0 #baa77a;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.variety-button:hover:not(:disabled):not([aria-pressed="true"]) { background: #f8ebc5; }
+.variety-button[aria-pressed="true"] { background: #426a48; color: #fff1c9; box-shadow: 3px 3px 0 #263d2b; }
+.variety-button:disabled { cursor: wait; }
+.type-badge[data-type="fire"] { background: #e6a06b; }
+.type-badge[data-type="water"] { background: #a1c9cb; }
+.type-badge[data-type="grass"] { background: #a9ca81; }
+.type-badge[data-type="electric"] { background: #eed574; }
+.type-badge[data-type="poison"] { background: #c7a7c5; }
+.type-badge[data-type="psychic"] { background: #eba9a7; }
+.measures { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 2px solid #bda777; }
+.measures > div { display: flex; flex-direction: column; justify-content: center; gap: 6px; min-height: 79px; padding: 12px 8px; }
+.measures > div:first-child { padding-left: 0; }
+.measures > div + div { border-left: 2px solid #bda777; padding-left: 15px; }
+.measures strong { font-size: 19px; white-space: nowrap; }
+.info-section { padding-top: 19px; }
+.section-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; padding-bottom: 7px; border-bottom: 2px solid #bda777; color: #73552d; }
+.section-heading h3 { margin: 0; font-family: 'Press Start 2P', 'Silkscreen', monospace; font-size: 10px; line-height: 1.5; letter-spacing: 0; }
+.section-heading > span { font-size: 11px; font-weight: bold; }
+.ability-chip { padding: 7px 9px; background: #ede5cb; font-size: 11px; }
+.stats { display: grid; gap: 8px; }
+.stat { display: grid; grid-template-columns: 112px 37px minmax(0, 1fr); align-items: center; gap: 10px; font-size: 12px; font-weight: bold; }
+.stat__value { text-align: right; font-size: 14px; }
+.stat__track { display: block; height: 15px; border: 3px solid #31492f; background: #d1cba4; }
+.stat__bar { display: block; height: 100%; background: repeating-linear-gradient(90deg, #4c7543 0 10px, #668f52 10px 13px); }
+.is-loading .scene__sprite { opacity: .55; }
+.message { min-height: 48px; padding: 14px 20px; border-top: 5px solid #243e2b; background: #263f2d; color: #e9daa4; font-size: 13px; font-weight: bold; letter-spacing: .04em; }
+.message::before { content: '▶ '; color: #d8be6a; }
+.message--error { background: #6a3530; color: #fff1cc; }
+
+.footer { display: flex; justify-content: space-between; gap: 15px; margin: 25px 0 35px; padding: 19px 22px; border: 5px solid #183c34; background: #25473d; box-shadow: 8px 8px 0 #173b33; color: #f4e9ca; font-size: 11px; font-weight: bold; letter-spacing: .04em; }
+@keyframes sprite-float {
+  0%, 100% { transform: translateY(2px) rotate(-1deg); }
+  25% { transform: translateY(-7px) rotate(1deg); }
+  50% { transform: translateY(-12px) scale(1.035) rotate(-1deg); }
+  75% { transform: translateY(-5px) rotate(1deg); }
+}
+
+/* Cada tipo conserva la misma escena, pero cambia su territorio y su clima. */
+.scene {
+  --tile-a: #689754; --tile-b: #7daa61;
+  --sky-a: #91bca4; --sky-b: #9dc6ad;
+  --land-a: #315d34; --land-b: #6e9d50;
+  --particle: #daf2a4;
+  background: repeating-conic-gradient(var(--tile-a) 0% 25%, var(--tile-b) 0% 50%) 0 0 / 34px 34px;
+  animation: terrain-pan 12s steps(8, end) infinite;
+}
+.scene__sky {
+  background: repeating-linear-gradient(90deg, var(--sky-a) 0 44px, var(--sky-b) 44px 88px);
+  border-bottom-color: var(--land-a);
+  animation: sky-pan 12s steps(8, end) infinite;
+}
+.scene::before {
+  background: repeating-linear-gradient(90deg, var(--land-a) 0 20px, var(--land-b) 20px 35px);
+  box-shadow: 0 12px 0 var(--land-a), 0 24px 0 var(--tile-a);
+  animation: horizon-glide 8s steps(7, end) infinite;
+}
+.scene__tree {
+  border-color: var(--land-a);
+  background: var(--tile-a);
+  box-shadow: inset 10px 10px 0 var(--land-b), inset -10px -10px 0 var(--land-a), 7px 8px 0 var(--land-a);
+  transform-origin: center bottom;
+  animation: tree-sway 4.8s steps(4, end) infinite;
+}
+.scene__tree--right { animation-delay: -2.4s; }
+.scene__tree::after { background: var(--land-a); box-shadow: inset 6px 0 0 var(--land-b); }
+.scene__ground {
+  border-color: var(--land-a);
+  background: repeating-conic-gradient(var(--tile-b) 0% 25%, var(--sky-b) 0% 50%) 0 0 / 22px 22px;
+  box-shadow: 6px 7px 0 var(--land-a);
+  animation: ground-heave 4.5s steps(4, end) infinite, ground-scroll 10s steps(8, end) infinite;
+}
+.scene__sprite img { transform-origin: center 78%; }
+.scene__label { animation: label-glint 5s steps(3, end) infinite; }
+
+.scene[data-type="normal"] {
+  --tile-a: #b4a48e; --tile-b: #c7b8a2; --sky-a: #d2c5b2; --sky-b: #e2d5bd;
+  --land-a: #786a60; --land-b: #ac9286; --particle: #fff0d5;
+}
+.scene[data-type="fire"] {
+  --tile-a: #a44734; --tile-b: #c5613e; --sky-a: #e49b61; --sky-b: #f0b76f;
+  --land-a: #632f2d; --land-b: #d97e46; --particle: #ffe17b;
+}
+.scene[data-type="water"] {
+  --tile-a: #3b829b; --tile-b: #55a6b8; --sky-a: #8acbd2; --sky-b: #a9dce1;
+  --land-a: #2f617e; --land-b: #75c2c6; --particle: #e2fbff;
+}
+.scene[data-type="electric"] {
+  --tile-a: #b6a637; --tile-b: #d8c84a; --sky-a: #f0df84; --sky-b: #f9e8a0;
+  --land-a: #786c2b; --land-b: #fff085; --particle: #fff9b0;
+}
+.scene[data-type="grass"] {
+  --tile-a: #3e9250; --tile-b: #60ad5d; --sky-a: #91c79d; --sky-b: #b6d8a7;
+  --land-a: #285e3e; --land-b: #91c66f; --particle: #d9f39b;
+}
+.scene[data-type="ice"] {
+  --tile-a: #8bc5d3; --tile-b: #b1dee7; --sky-a: #d6f2f1; --sky-b: #ecfbf4;
+  --land-a: #5b9eae; --land-b: #d6f7f6; --particle: #ffffff;
+}
+.scene[data-type="fighting"] {
+  --tile-a: #9b5238; --tile-b: #bd7144; --sky-a: #dda177; --sky-b: #f0bd8a;
+  --land-a: #703a32; --land-b: #e49a59; --particle: #ffd390;
+}
+.scene[data-type="poison"] {
+  --tile-a: #794b8d; --tile-b: #9b66a5; --sky-a: #c195c3; --sky-b: #dbabd0;
+  --land-a: #513766; --land-b: #bb79b2; --particle: #e5b6ef;
+}
+.scene[data-type="ground"] {
+  --tile-a: #b88b53; --tile-b: #d3a666; --sky-a: #e5c790; --sky-b: #f4dca7;
+  --land-a: #765536; --land-b: #d7b478; --particle: #f8dfa3;
+}
+.scene[data-type="flying"] {
+  --tile-a: #82aabd; --tile-b: #a2c8d1; --sky-a: #c7e3e8; --sky-b: #e1f0ed;
+  --land-a: #597e91; --land-b: #b8d6dc; --particle: #f7fffa;
+}
+.scene[data-type="psychic"] {
+  --tile-a: #b6608d; --tile-b: #d483a9; --sky-a: #edb2ca; --sky-b: #f7cdda;
+  --land-a: #7a446f; --land-b: #e8a4bd; --particle: #ffe7f3;
+}
+.scene[data-type="bug"] {
+  --tile-a: #66883d; --tile-b: #89a94e; --sky-a: #acc579; --sky-b: #c8d890;
+  --land-a: #405d32; --land-b: #a7ca60; --particle: #e3ef95;
+}
+.scene[data-type="rock"] {
+  --tile-a: #8d715d; --tile-b: #ab8d72; --sky-a: #c8ac88; --sky-b: #dec3a0;
+  --land-a: #57483f; --land-b: #b69b7b; --particle: #e1c8a2;
+}
+.scene[data-type="ghost"] {
+  --tile-a: #595581; --tile-b: #77719b; --sky-a: #a09bc1; --sky-b: #bcb6d3;
+  --land-a: #383954; --land-b: #958ab2; --particle: #e8dcff;
+}
+.scene[data-type="dragon"] {
+  --tile-a: #4a7980; --tile-b: #62a1a2; --sky-a: #97c6c1; --sky-b: #b6dcd0;
+  --land-a: #31515f; --land-b: #8bc9b7; --particle: #d8fff2;
+}
+.scene[data-type="dark"] {
+  --tile-a: #494755; --tile-b: #65616f; --sky-a: #777386; --sky-b: #8e899a;
+  --land-a: #292a34; --land-b: #817b8c; --particle: #c7bdd9;
+}
+.scene[data-type="steel"] {
+  --tile-a: #63847e; --tile-b: #82a29a; --sky-a: #b8d0c7; --sky-b: #d4e1d6;
+  --land-a: #425f5d; --land-b: #a0c8b6; --particle: #d9fff0;
+}
+.scene[data-type="fairy"] {
+  --tile-a: #c17a9d; --tile-b: #dc9bbb; --sky-a: #efc1d4; --sky-b: #ffe0e7;
+  --land-a: #8d5b86; --land-b: #efb4ca; --particle: #fff3fc;
+}
+
+.scene[data-type="ground"] .scene__tree,
+.scene[data-type="rock"] .scene__tree {
+  height: 75px;
+  border-radius: 30% 15% 8% 8%;
+}
+.scene[data-type="ground"] .scene__tree::after,
+.scene[data-type="rock"] .scene__tree::after { display: none; }
+.scene[data-type="water"] .scene__tree { border-radius: 50% 50% 0 0; }
+.scene[data-type="ice"] .scene__tree { clip-path: polygon(50% 0, 95% 30%, 75% 100%, 15% 100%, 0 35%); }
+
+.scene__atmosphere {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.scene__particle {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 10px;
+  height: 10px;
+  background: var(--particle);
+  opacity: .8;
+  animation: sparkle var(--duration) steps(4, end) var(--delay) infinite;
+}
+.scene__sprite { z-index: 3; }
+.scene__label { z-index: 4; }
+
+.scene[data-type="grass"] .scene__particle,
+.scene[data-type="bug"] .scene__particle {
+  clip-path: polygon(50% 0, 100% 45%, 75% 100%, 0 55%);
+  animation-name: leaf-drift;
+}
+.scene[data-type="ground"] .scene__particle,
+.scene[data-type="rock"] .scene__particle {
+  clip-path: polygon(0 25%, 65% 0, 100% 55%, 35% 100%);
+  animation-name: dust-drift;
+}
+.scene[data-type="water"] .scene__particle,
+.scene[data-type="poison"] .scene__particle {
+  width: 12px;
+  height: 12px;
+  border: 3px solid var(--particle);
+  border-radius: 50%;
+  background: transparent;
+  animation-name: bubble-rise;
+}
+.scene[data-type="fire"] .scene__particle,
+.scene[data-type="dragon"] .scene__particle,
+.scene[data-type="fighting"] .scene__particle {
+  clip-path: polygon(50% 0, 80% 40%, 100% 100%, 35% 85%, 0 45%);
+  animation-name: ember-rise;
+}
+.scene[data-type="electric"] .scene__particle {
+  width: 14px;
+  height: 19px;
+  clip-path: polygon(55% 0, 10% 55%, 48% 50%, 28% 100%, 95% 38%, 55% 45%);
+  animation-name: spark-jitter;
+}
+.scene[data-type="ice"] .scene__particle,
+.scene[data-type="fairy"] .scene__particle,
+.scene[data-type="psychic"] .scene__particle,
+.scene[data-type="normal"] .scene__particle {
+  width: 13px;
+  height: 13px;
+  clip-path: polygon(50% 0, 63% 37%, 100% 50%, 63% 63%, 50% 100%, 37% 63%, 0 50%, 37% 37%);
+  animation-name: sparkle;
+}
+.scene[data-type="flying"] .scene__particle,
+.scene[data-type="steel"] .scene__particle {
+  width: 28px;
+  height: 4px;
+  animation-name: wind-sweep;
+}
+.scene[data-type="ghost"] .scene__particle,
+.scene[data-type="dark"] .scene__particle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50% 50% 20% 50%;
+  animation-name: wisp-rise;
+}
+.scene[data-type="dark"] .scene__particle { background: #242434; }
+.scene[data-type="bug"] .scene__particle { border-radius: 50%; clip-path: none; animation-name: firefly-hop; }
+.scene[data-type="rock"] .scene__particle { clip-path: none; animation-name: rock-fall; }
+.scene[data-type="poison"] .scene__particle { border: 0; background: var(--particle); animation-name: poison-boil; }
+.scene[data-type="dragon"] .scene__particle { animation-name: dragon-orbit; }
+.scene[data-type="fighting"] .scene__particle { animation-name: impact-burst; }
+.scene[data-type="ice"] .scene__particle { animation-name: snow-fall; }
+.scene[data-type="fairy"] .scene__particle { animation-name: fairy-twinkle; }
+.scene[data-type="psychic"] .scene__particle { border: 2px solid var(--particle); border-radius: 50%; background: transparent; clip-path: none; animation-name: psychic-wave; }
+.scene[data-type="steel"] .scene__particle { animation-name: steel-glint; }
+.scene[data-type="dark"] .scene__particle { animation-name: shadow-creep; }
+
+@keyframes leaf-drift {
+  0% { transform: translate(-14px, 18px) rotate(-20deg); opacity: 0; }
+  35% { opacity: .85; }
+  100% { transform: translate(30px, -28px) rotate(100deg); opacity: 0; }
+}
+@keyframes dust-drift {
+  0% { transform: translate(-32px, 16px) scale(.5); opacity: 0; }
+  35% { opacity: .8; }
+  100% { transform: translate(36px, -24px) scale(1.2); opacity: 0; }
+}
+@keyframes bubble-rise {
+  0% { transform: translateY(28px) scale(.5); opacity: 0; }
+  30% { opacity: .8; }
+  100% { transform: translateY(-55px) scale(1.25); opacity: 0; }
+}
+@keyframes ember-rise {
+  0% { transform: translateY(22px) scale(.6); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translate(9px, -54px) scale(1.1); opacity: 0; }
+}
+@keyframes spark-jitter {
+  0%, 100% { transform: translate(0, 0) scale(.7); opacity: 0; }
+  20%, 60% { transform: translate(5px, -4px) scale(1.2); opacity: 1; }
+  35%, 75% { transform: translate(-4px, 3px) scale(.8); opacity: .25; }
+}
+@keyframes sparkle {
+  0%, 100% { transform: scale(.35) rotate(0); opacity: 0; }
+  50% { transform: scale(1.3) rotate(90deg); opacity: 1; }
+}
+@keyframes wind-sweep {
+  0% { transform: translateX(-30px); opacity: 0; }
+  30% { opacity: .85; }
+  100% { transform: translateX(58px); opacity: 0; }
+}
+@keyframes wisp-rise {
+  0% { transform: translate(-12px, 18px) scale(.4); opacity: 0; }
+  35% { opacity: .6; }
+  100% { transform: translate(17px, -40px) scale(1.5); opacity: 0; }
+}
+@keyframes firefly-hop {
+  0%, 100% { transform: translate(0, 0) scale(.5); opacity: .1; }
+  30% { transform: translate(14px, -18px) scale(1); opacity: 1; }
+  65% { transform: translate(-9px, -25px) scale(.7); opacity: .3; }
+}
+@keyframes rock-fall {
+  0% { transform: translateY(-35px) rotate(0); opacity: 0; }
+  25% { opacity: .8; }
+  75% { transform: translateY(20px) rotate(70deg); opacity: .8; }
+  100% { transform: translateY(26px) rotate(90deg); opacity: 0; }
+}
+@keyframes poison-boil {
+  0%, 100% { transform: translateY(8px) scale(.3); opacity: 0; }
+  45% { transform: translateY(-10px) scale(1.3); opacity: .8; }
+  70% { transform: translateY(-22px) scale(.7); opacity: .4; }
+}
+@keyframes dragon-orbit {
+  0% { transform: translate(-18px, 12px) rotate(-30deg) scale(.5); opacity: 0; }
+  35% { opacity: .9; }
+  100% { transform: translate(27px, -39px) rotate(160deg) scale(1.3); opacity: 0; }
+}
+@keyframes impact-burst {
+  0%, 100% { transform: scale(.2) rotate(0); opacity: 0; }
+  25% { transform: scale(1.5) rotate(45deg); opacity: 1; }
+  40% { transform: scale(.6) rotate(65deg); opacity: .2; }
+}
+@keyframes snow-fall {
+  0% { transform: translate(-12px, -35px) rotate(0); opacity: 0; }
+  30% { opacity: .95; }
+  100% { transform: translate(18px, 35px) rotate(120deg); opacity: 0; }
+}
+@keyframes fairy-twinkle {
+  0%, 100% { transform: translateY(8px) scale(.2) rotate(0); opacity: 0; }
+  45% { transform: translateY(-10px) scale(1.5) rotate(40deg); opacity: 1; }
+  60% { transform: translateY(-13px) scale(.8) rotate(60deg); opacity: .5; }
+}
+@keyframes psychic-wave {
+  0% { transform: scale(.3); opacity: .9; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+@keyframes steel-glint {
+  0% { transform: translate(-25px, 12px) rotate(-35deg); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translate(42px, -23px) rotate(-35deg); opacity: 0; }
+}
+@keyframes shadow-creep {
+  0% { transform: translate(-15px, 6px) scale(1.6); opacity: 0; }
+  45% { opacity: .55; }
+  100% { transform: translate(18px, 0) scale(.4); opacity: 0; }
+}
+
+/* Siluetas de escenario: un pequeño diorama distinto para cada territorio. */
+.scene {
+  --orb: #f7e0a1;
+  --ridge-a: var(--land-a);
+  --ridge-b: var(--land-b);
+  --prop-a: var(--land-a);
+  --prop-b: var(--land-b);
+}
+.scene__landscape {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.scene__orb {
+  position: absolute;
+  top: 10%;
+  right: 12%;
+  width: 49px;
+  height: 49px;
+  border: 5px solid var(--ridge-a);
+  background: var(--orb);
+  box-shadow: 0 0 0 5px #fff4c53b, 6px 6px 0 #182b252e;
+  animation: orb-glow 5s steps(4, end) infinite;
+}
+.scene__ridge {
+  position: absolute;
+  bottom: 24%;
+  width: 36%;
+  height: 27%;
+  background: linear-gradient(130deg, var(--ridge-b) 0 29%, var(--ridge-a) 29% 72%, var(--ridge-b) 72%);
+  clip-path: polygon(0 100%, 0 74%, 13% 74%, 13% 54%, 30% 54%, 30% 29%, 48% 29%, 48% 13%, 61% 13%, 61% 42%, 80% 42%, 80% 68%, 100% 68%, 100% 100%);
+  opacity: .9;
+  animation: ridge-breathe 6s steps(3, end) infinite;
+}
+.scene__ridge--left { left: -6%; }
+.scene__ridge--right { right: -6%; transform: scaleX(-1); animation-delay: -3s; }
+.scene__prop {
+  position: absolute;
+  bottom: 13%;
+  width: 54px;
+  height: 65px;
+  background: var(--prop-a);
+  box-shadow: inset 9px 0 0 var(--prop-b), 6px 6px 0 #16231955;
+  clip-path: polygon(16% 100%, 16% 65%, 0 65%, 0 40%, 18% 40%, 18% 24%, 38% 24%, 38% 8%, 65% 8%, 65% 28%, 84% 28%, 84% 54%, 100% 54%, 100% 100%);
+  animation: prop-sway 4.8s steps(3, end) infinite;
+}
+.scene__prop::after {
+  content: '';
+  position: absolute;
+  top: 16%;
+  left: 39%;
+  width: 25%;
+  height: 52%;
+  background: var(--prop-b);
+}
+.scene__prop--left { left: 7%; }
+.scene__prop--right { right: 7%; animation-delay: -2.3s; }
+.scene__weather {
+  position: absolute;
+  bottom: 49%;
+  width: 40px;
+  height: 27px;
+  background: color-mix(in srgb, var(--particle) 58%, var(--ridge-a));
+  clip-path: polygon(0 100%, 0 57%, 18% 57%, 18% 28%, 40% 28%, 40% 0, 69% 0, 69% 34%, 88% 34%, 88% 65%, 100% 65%, 100% 100%);
+  opacity: 0;
+  animation: weather-rise 5.5s steps(7, end) infinite;
+}
+.scene__weather--left { left: 13%; }
+.scene__weather--right { right: 13%; animation-delay: -2.8s; }
+.scene__bolt { display: none; }
+.scene__light {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 67%, color-mix(in srgb, var(--particle) 44%, transparent), transparent 61%);
+  mix-blend-mode: screen;
+  animation: climate-pulse 4.6s steps(5, end) infinite;
+}
+
+/* Fuego: volcanes con lava que desciende y una corriente incandescente. */
+.scene[data-type="fire"] { --orb: #ffcf71; --ridge-a: #582b30; --ridge-b: #913b31; --prop-a: #6b302c; --prop-b: #ff8a38; }
+.scene[data-type="fire"] .scene__sky { background: linear-gradient(#bd5040, #ef9e60); }
+.scene[data-type="fire"] .scene__tree { display: none; }
+.scene[data-type="fire"] .scene__ridge { height: 37%; clip-path: polygon(0 100%, 17% 75%, 38% 34%, 49% 34%, 58% 34%, 84% 76%, 100% 100%); animation: volcano-rumble 3.2s steps(4, end) infinite; }
+.scene[data-type="fire"] .scene__ridge--right { animation-delay: -1.6s; }
+.scene[data-type="fire"] .scene__ridge::after {
+  content: '';
+  position: absolute;
+  top: 26%;
+  left: 46%;
+  width: 14%;
+  height: 74%;
+  background: repeating-linear-gradient(180deg, #ffdc72 0 9px, #f36e32 9px 18px);
+  animation: lava-drip 1.2s steps(4, end) infinite;
+}
+.scene[data-type="fire"] .scene__ground {
+  border-color: #7c342d;
+  background: repeating-linear-gradient(115deg, #612e2c 0 17px, #ffba51 17px 24px, #e35d2c 24px 33px, #632f2d 33px 47px);
+  background-size: 95px 100%;
+  animation: lava-flow 3s steps(6, end) infinite, ground-heave 4.5s steps(4, end) infinite;
+}
+.scene[data-type="fire"] .scene__prop { clip-path: polygon(0 100%, 15% 63%, 35% 63%, 47% 24%, 58% 58%, 80% 51%, 100% 100%); animation: flame-flicker 1.3s steps(3, end) infinite; }
+.scene[data-type="fire"] .scene__weather { bottom: 55%; background: #6d3c3d; animation: smoke-rise 3.7s steps(7, end) infinite; }
+.scene[data-type="fire"] .scene__weather--right { animation-delay: -1.8s; }
+.scene[data-type="fire"] .scene__light { background: radial-gradient(ellipse at 50% 70%, #ffa24786 0, #f05d3938 35%, transparent 67%); animation: firelight 2.1s steps(4, end) infinite; }
+.scene[data-type="fire"] .scene__sprite img { animation: sprite-fire 2.2s steps(6, end) infinite; }
+
+/* Tierra y roca: mesetas, grietas y piedras en el borde del camino. */
+.scene:is([data-type="ground"], [data-type="rock"]) .scene__tree { display: none; }
+.scene:is([data-type="ground"], [data-type="rock"]) .scene__prop { height: 42px; width: 65px; bottom: 16%; animation: rock-shift 5s steps(2, end) infinite; }
+.scene[data-type="ground"] { --orb: #f9db94; --ridge-a: #8b6039; --ridge-b: #d2a670; --prop-a: #745135; --prop-b: #b88955; }
+.scene[data-type="ground"] .scene__ridge { clip-path: polygon(0 100%, 0 66%, 16% 66%, 16% 30%, 63% 30%, 63% 49%, 82% 49%, 82% 75%, 100% 75%, 100% 100%); }
+.scene[data-type="ground"] .scene__ground {
+  background: repeating-linear-gradient(75deg, #bf995f 0 19px, #795632 19px 21px, #d4ae74 21px 43px, #8d6339 43px 45px);
+}
+.scene[data-type="rock"] { --orb: #e7cfa3; --ridge-a: #554c48; --ridge-b: #98806b; --prop-a: #534842; --prop-b: #a78d71; }
+.scene[data-type="rock"] .scene__ridge { height: 35%; clip-path: polygon(0 100%, 0 75%, 15% 75%, 15% 51%, 29% 51%, 29% 20%, 45% 20%, 45% 4%, 56% 4%, 56% 43%, 74% 43%, 74% 67%, 100% 67%, 100% 100%); }
+.scene[data-type="rock"] .scene__ground { background: repeating-conic-gradient(#756253 0% 25%, #b39b7c 0% 50%) 0 0 / 31px 31px; }
+
+/* Agua, hielo y aire tienen siluetas y superficies que fluyen. */
+.scene:is([data-type="water"], [data-type="ice"], [data-type="flying"]) .scene__tree { display: none; }
+.scene[data-type="water"] { --orb: #fff3b6; --ridge-a: #34768d; --ridge-b: #70c2cb; --prop-a: #3a8498; --prop-b: #ddf8ef; }
+.scene[data-type="water"] .scene__ridge { height: 22%; clip-path: polygon(0 100%, 0 59%, 16% 59%, 16% 45%, 31% 45%, 31% 62%, 51% 62%, 51% 32%, 68% 32%, 68% 57%, 84% 57%, 84% 40%, 100% 40%, 100% 100%); }
+.scene[data-type="water"] .scene__ground { background: repeating-linear-gradient(0deg, #287994 0 8px, #58b6bd 8px 16px, #c6f0df 16px 19px, #4a9bb1 19px 29px); background-size: 100% 58px; animation: water-roll 2.8s steps(5, end) infinite, ground-heave 4.5s steps(4, end) infinite; }
+.scene[data-type="water"] .scene__prop { height: 34px; border-radius: 50% 50% 0 0; animation: prop-sway 3s steps(3, end) infinite; }
+.scene[data-type="water"] .scene__weather { bottom: 36%; background: #d1f8ed; }
+.scene[data-type="ice"] { --orb: #f8ffff; --ridge-a: #62a7ba; --ridge-b: #d5f7f0; --prop-a: #64bed0; --prop-b: #efffff; }
+.scene[data-type="ice"] .scene__ridge { height: 37%; clip-path: polygon(0 100%, 0 67%, 23% 67%, 44% 7%, 59% 48%, 76% 25%, 100% 100%); }
+.scene[data-type="ice"] .scene__prop { clip-path: polygon(0 100%, 23% 35%, 49% 0, 75% 43%, 100% 100%); animation: crystal-glint 3.5s steps(3, end) infinite; }
+.scene[data-type="ice"] .scene__ground { background: repeating-linear-gradient(105deg, #a5d9e2 0 28px, #e9ffff 28px 31px, #78bbce 31px 54px); }
+.scene[data-type="flying"] { --orb: #fff8ce; --ridge-a: #6e9aab; --ridge-b: #e6f4ed; --prop-a: #d9f0ef; --prop-b: #8bb9cb; }
+.scene[data-type="flying"] .scene__ridge { bottom: 37%; height: 18%; border-radius: 45%; clip-path: none; animation: cloud-drift 8s steps(6, end) infinite; }
+.scene[data-type="flying"] .scene__prop { bottom: 25%; border-radius: 50%; clip-path: none; animation: cloud-drift 6s steps(5, end) infinite; }
+
+/* Bosque, insectos, pradera y hadas conservan árboles, pero ganan detalles vivos. */
+.scene:is([data-type="grass"], [data-type="bug"], [data-type="fairy"], [data-type="normal"]) .scene__ridge { height: 20%; border-radius: 40% 40% 0 0; clip-path: none; }
+.scene:is([data-type="grass"], [data-type="bug"], [data-type="fairy"], [data-type="normal"]) .scene__prop { width: 39px; height: 48px; bottom: 17%; clip-path: polygon(42% 100%, 42% 54%, 0 54%, 0 27%, 28% 27%, 28% 9%, 72% 9%, 72% 27%, 100% 27%, 100% 54%, 58% 54%, 58% 100%); }
+.scene[data-type="grass"] { --orb: #f4e59c; --ridge-a: #3b7b47; --ridge-b: #8dc36a; --prop-a: #427e43; --prop-b: #a8d878; }
+.scene[data-type="bug"] { --orb: #e8efa2; --ridge-a: #4d6936; --ridge-b: #9dc04e; --prop-a: #526d38; --prop-b: #c6de70; }
+.scene[data-type="bug"] .scene__prop { height: 70px; width: 22px; clip-path: polygon(35% 100%, 35% 17%, 0 17%, 0 0, 100% 0, 100% 17%, 65% 17%, 65% 100%); }
+.scene[data-type="normal"] { --orb: #fff0b6; --ridge-a: #8b775f; --ridge-b: #c9b99c; --prop-a: #7c8054; --prop-b: #d6d39a; }
+.scene[data-type="fairy"] { --orb: #fff4dd; --ridge-a: #8f648d; --ridge-b: #f2bdd7; --prop-a: #ad619d; --prop-b: #ffdfec; }
+.scene[data-type="fairy"] .scene__orb { border-radius: 50%; }
+.scene[data-type="fairy"] .scene__prop { clip-path: polygon(40% 100%, 40% 51%, 0 51%, 0 33%, 24% 15%, 75% 15%, 100% 33%, 100% 51%, 60% 51%, 60% 100%); animation: crystal-glint 3s steps(3, end) infinite; }
+
+/* Los otros biomas cambian la arquitectura, el suelo y su movimiento. */
+.scene:is([data-type="electric"], [data-type="fighting"], [data-type="poison"], [data-type="psychic"], [data-type="ghost"], [data-type="dragon"], [data-type="dark"], [data-type="steel"]) .scene__tree { display: none; }
+.scene[data-type="electric"] { --orb: #fff5a0; --ridge-a: #716631; --ridge-b: #d6c44e; --prop-a: #887537; --prop-b: #fff17b; }
+.scene[data-type="electric"] .scene__ridge { clip-path: polygon(0 100%, 11% 74%, 34% 74%, 49% 6%, 61% 60%, 82% 60%, 100% 100%); }
+.scene[data-type="electric"] .scene__prop { clip-path: polygon(50% 0, 19% 49%, 44% 49%, 23% 100%, 89% 39%, 60% 39%); animation: electric-flash 1.8s steps(2, end) infinite; }
+.scene[data-type="electric"] .scene__weather {
+  bottom: 57%;
+  width: 77px;
+  height: 36px;
+  background: #70692f;
+  animation: storm-drift 5.2s steps(6, end) infinite;
+}
+.scene[data-type="electric"] .scene__weather--left { left: 5%; }
+.scene[data-type="electric"] .scene__weather--right { right: 5%; animation-delay: -2.6s; }
+.scene[data-type="electric"] .scene__bolt {
+  display: block;
+  position: absolute;
+  top: 29%;
+  width: 43px;
+  height: 40%;
+  background: #fffac5;
+  clip-path: polygon(55% 0, 12% 48%, 40% 48%, 15% 100%, 95% 43%, 63% 43%, 88% 0);
+  filter: drop-shadow(0 0 12px #fff4a2);
+  opacity: .5;
+  animation: lightning-strike 4.5s steps(1, end) infinite;
+}
+.scene[data-type="electric"] .scene__bolt--left { left: 15%; }
+.scene[data-type="electric"] .scene__bolt--right { right: 15%; animation-delay: -2.25s; }
+.scene[data-type="electric"] .scene__ground::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, transparent 0 15px, #fff7a6 15px 21px, transparent 21px 42px);
+  background-size: 84px 100%;
+  opacity: .68;
+  animation: charge-flow 1.8s steps(8, end) infinite;
+}
+.scene[data-type="electric"] .scene__ridge { animation: electric-rumble 4.5s steps(8, end) infinite; }
+.scene[data-type="electric"] .scene__ridge--right { animation-delay: -2.25s; }
+.scene[data-type="electric"] .scene__orb { animation: electric-orb 4.5s steps(8, end) infinite; }
+.scene[data-type="electric"] .scene__light {
+  background: radial-gradient(ellipse at 50% 62%, #fff9a8a8 0, #ffe44d55 34%, transparent 68%);
+  animation: electric-surge 4.5s steps(8, end) infinite;
+}
+.scene[data-type="electric"] .scene__sprite::before {
+  content: '';
+  position: absolute;
+  inset: 4px 1px 9px;
+  border: 5px dashed #ffe45c;
+  border-radius: 49%;
+  opacity: .65;
+  animation: electric-aura 2.4s steps(6, end) infinite;
+}
+.scene[data-type="electric"] .scene__sprite img {
+  position: relative;
+  z-index: 1;
+  animation: sprite-electric 2.4s steps(6, end) infinite;
+}
+.scene[data-type="fighting"] { --orb: #f6d09b; --ridge-a: #763d35; --ridge-b: #cc8654; --prop-a: #693a32; --prop-b: #e3ab73; }
+.scene[data-type="fighting"] .scene__ridge { height: 21%; clip-path: polygon(0 100%, 0 50%, 17% 50%, 17% 28%, 82% 28%, 82% 50%, 100% 50%, 100% 100%); }
+.scene[data-type="fighting"] .scene__prop { width: 30px; height: 92px; clip-path: none; animation: prop-sway 5s steps(2, end) infinite; }
+.scene[data-type="poison"] { --orb: #dca9d4; --ridge-a: #594169; --ridge-b: #9a65aa; --prop-a: #6e4c75; --prop-b: #d998d8; }
+.scene[data-type="poison"] .scene__ridge { height: 18%; border-radius: 45% 45% 0 0; clip-path: none; }
+.scene[data-type="poison"] .scene__ground { background: repeating-radial-gradient(circle at 30% 40%, #9e6baa 0 8px, #684977 9px 17px, #b684b8 18px 24px); background-size: 70px 70px; animation: swamp-boil 3.4s steps(4, end) infinite, ground-heave 4.5s steps(4, end) infinite; }
+.scene[data-type="poison"] .scene__prop { clip-path: polygon(40% 100%, 40% 46%, 0 46%, 13% 20%, 82% 20%, 100% 46%, 60% 46%, 60% 100%); animation: prop-sway 4s steps(3, end) infinite; }
+.scene[data-type="psychic"] { --orb: #ffe2e6; --ridge-a: #864e80; --ridge-b: #d693b8; --prop-a: #a564a1; --prop-b: #ffcadb; }
+.scene[data-type="psychic"] .scene__ridge { height: 29%; clip-path: polygon(0 100%, 23% 71%, 50% 6%, 77% 71%, 100% 100%); }
+.scene[data-type="psychic"] .scene__orb { border-radius: 50%; animation: psychic-pulse 3s steps(4, end) infinite; }
+.scene[data-type="psychic"] .scene__prop { clip-path: polygon(50% 0, 100% 40%, 66% 100%, 34% 100%, 0 40%); animation: crystal-glint 3s steps(4, end) infinite; }
+.scene[data-type="ghost"] { --orb: #e7dbf8; --ridge-a: #393754; --ridge-b: #756d97; --prop-a: #43435e; --prop-b: #9b91bb; }
+.scene[data-type="ghost"] .scene__orb { border-radius: 50%; }
+.scene[data-type="ghost"] .scene__ridge { height: 22%; clip-path: polygon(0 100%, 0 55%, 18% 55%, 18% 24%, 35% 24%, 35% 43%, 65% 43%, 65% 16%, 85% 16%, 85% 66%, 100% 66%, 100% 100%); }
+.scene[data-type="ghost"] .scene__prop { border-radius: 45% 45% 0 0; clip-path: none; animation: ghost-hover 4s steps(4, end) infinite; }
+.scene[data-type="dragon"] { --orb: #d2f3da; --ridge-a: #315765; --ridge-b: #75aea3; --prop-a: #366675; --prop-b: #a1d5bf; }
+.scene[data-type="dragon"] .scene__ridge { height: 38%; clip-path: polygon(0 100%, 0 81%, 26% 81%, 42% 22%, 52% 2%, 63% 45%, 81% 32%, 100% 100%); }
+.scene[data-type="dragon"] .scene__prop { clip-path: polygon(0 100%, 28% 70%, 36% 12%, 58% 0, 73% 78%, 100% 100%); }
+.scene[data-type="dark"] { --orb: #d0c5d4; --ridge-a: #262833; --ridge-b: #615d70; --prop-a: #302d3a; --prop-b: #777184; }
+.scene[data-type="dark"] .scene__orb { border-radius: 50%; box-shadow: inset -12px 0 0 #6e6a7b, 0 0 0 5px #d9d4e01c; }
+.scene[data-type="dark"] .scene__ridge { height: 30%; clip-path: polygon(0 100%, 0 58%, 21% 58%, 21% 15%, 38% 15%, 38% 42%, 65% 42%, 65% 0, 84% 0, 84% 63%, 100% 63%, 100% 100%); }
+.scene[data-type="dark"] .scene__prop { clip-path: polygon(0 100%, 15% 28%, 39% 28%, 50% 0, 61% 28%, 85% 28%, 100% 100%); }
+.scene[data-type="steel"] { --orb: #e4f3e8; --ridge-a: #405f60; --ridge-b: #9dc4b4; --prop-a: #476e69; --prop-b: #c3e5d5; }
+.scene[data-type="steel"] .scene__ridge { height: 25%; clip-path: polygon(0 100%, 0 36%, 20% 36%, 20% 0, 34% 0, 34% 54%, 57% 54%, 57% 20%, 76% 20%, 76% 43%, 100% 43%, 100% 100%); }
+.scene[data-type="steel"] .scene__prop { width: 27px; height: 83px; clip-path: none; animation: crystal-glint 4s steps(3, end) infinite; }
+.scene[data-type="steel"] .scene__ground { background: repeating-linear-gradient(90deg, #759e96 0 28px, #c0ddd0 28px 31px, #456b69 31px 35px); }
+
+@keyframes orb-glow { 50% { opacity: .7; box-shadow: 0 0 0 11px #fff4c526, 6px 6px 0 #182b252e; } }
+@keyframes ridge-breathe { 50% { translate: 0 4px; opacity: .77; } }
+@keyframes prop-sway { 50% { translate: 0 -4px; } }
+@keyframes lava-flow { to { background-position: 95px 0; } }
+@keyframes lava-drip { to { background-position: 0 18px; } }
+@keyframes flame-flicker { 50% { transform: scaleY(.82) rotate(6deg); filter: brightness(1.3); } }
+@keyframes rock-shift { 50% { translate: 2px 4px; rotate: 2deg; } }
+@keyframes water-roll { to { background-position: 0 58px; } }
+@keyframes crystal-glint { 50% { filter: brightness(1.45); } }
+@keyframes cloud-drift { 50% { translate: 14px -5px; } }
+@keyframes electric-flash { 50% { opacity: .4; filter: brightness(1.6); } }
+@keyframes storm-drift {
+  0%, 100% { transform: translate(-8px, 0); opacity: .55; }
+  50% { transform: translate(9px, -5px); opacity: .82; }
+}
+@keyframes lightning-strike {
+  0%, 9%, 15%, 20%, 55%, 62%, 68%, 100% { opacity: .5; }
+  10%, 14%, 57%, 61% { opacity: 1; }
+  17%, 65% { opacity: .55; }
+}
+@keyframes charge-flow { to { background-position: 84px 0; } }
+@keyframes electric-rumble {
+  10%, 57% { translate: 3px -3px; filter: brightness(1.4); }
+  17%, 65% { translate: -2px 2px; filter: brightness(.8); }
+}
+@keyframes electric-orb {
+  10%, 57% { box-shadow: 0 0 0 14px #fff7a080, 0 0 22px #fff7a0; filter: brightness(1.35); }
+  17%, 65% { box-shadow: 0 0 0 5px #fff4c53b; }
+}
+@keyframes electric-surge {
+  0%, 9%, 20%, 55%, 68%, 100% { opacity: .22; }
+  10%, 14%, 57%, 61% { opacity: .85; }
+  17%, 65% { opacity: .5; }
+}
+@keyframes electric-aura {
+  0%, 100% { transform: scale(.92) rotate(-9deg); opacity: .45; }
+  50% { transform: scale(1.08) rotate(9deg); opacity: .9; box-shadow: 0 0 14px #fff2a0; }
+}
+@keyframes sprite-electric {
+  0%, 100% { transform: translateY(3px) rotate(-3deg); filter: drop-shadow(7px 10px 0 #615d2d66); }
+  30% { transform: translateY(-11px) rotate(3deg) scale(1.04); filter: drop-shadow(7px 15px 0 #615d2d66) drop-shadow(0 0 8px #fff1a4); }
+  55% { transform: translateY(-15px) rotate(-2deg) scale(1.07); filter: drop-shadow(7px 17px 0 #615d2d66) drop-shadow(0 0 12px #fff1a4); }
+  80% { transform: translateY(-5px) rotate(2deg); }
+}
+@keyframes swamp-boil { to { background-position: 35px 25px; } }
+@keyframes psychic-pulse { 50% { transform: scale(1.12); box-shadow: 0 0 0 13px #ffe6f036; } }
+@keyframes ghost-hover { 50% { translate: 0 -9px; opacity: .7; } }
+@keyframes terrain-pan { to { background-position: 34px 34px; } }
+@keyframes sky-pan {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.1); }
+  100% { filter: brightness(1); background-position: 88px 0; }
+}
+@keyframes horizon-glide {
+  50% { opacity: .88; }
+  100% { background-position: 35px 0; }
+}
+@keyframes tree-sway {
+  25% { translate: -3px -2px; rotate: -2deg; }
+  75% { translate: 3px 0; rotate: 2deg; }
+}
+@keyframes ground-heave { 50% { translate: 0 3px; } }
+@keyframes ground-scroll { to { background-position: 22px 22px; } }
+@keyframes weather-rise {
+  0% { transform: translate(0, 18px) scale(.6); opacity: 0; }
+  35% { opacity: .55; }
+  100% { transform: translate(17px, -35px) scale(1.3); opacity: 0; }
+}
+@keyframes smoke-rise {
+  0% { transform: translate(0, 11px) scale(.55); opacity: 0; }
+  35% { opacity: .65; }
+  100% { transform: translate(-12px, -52px) scale(1.55); opacity: 0; }
+}
+@keyframes climate-pulse {
+  0%, 100% { opacity: .36; transform: scale(1); }
+  50% { opacity: .75; transform: scale(1.13); }
+}
+@keyframes firelight {
+  0%, 100% { opacity: .45; transform: scale(1); }
+  35% { opacity: .9; transform: scale(1.12); }
+  70% { opacity: .6; transform: scale(.96); }
+}
+@keyframes volcano-rumble {
+  25% { translate: 2px -2px; filter: brightness(1.12); }
+  50% { translate: -2px 2px; filter: brightness(.91); }
+  75% { translate: 1px -1px; }
+}
+@keyframes sprite-fire {
+  0%, 100% { transform: translateY(2px) rotate(-2deg); filter: drop-shadow(8px 11px 0 #24452966) drop-shadow(0 0 3px #ffab4577); }
+  35% { transform: translateY(-9px) rotate(2deg) scale(1.035); filter: drop-shadow(8px 14px 0 #24452966) drop-shadow(0 0 10px #ff873caa); }
+  65% { transform: translateY(-14px) rotate(-1deg) scale(1.05); filter: drop-shadow(8px 17px 0 #24452966) drop-shadow(0 0 7px #ffab4588); }
+}
+@keyframes label-glint { 50% { box-shadow: 4px 4px 0 #23432c, 0 0 0 3px #fff6d133; } }
+
+@media (max-width: 900px) {
+  .topbar__tag { display: none; }
+  .record { grid-template-columns: 1fr; }
+  .record__visual { border-right: 0; border-bottom: 6px solid #435f3d; }
+  .scene { min-height: 330px; }
+  .scene__tree--right { right: 4%; }
+}
+
+@media (max-width: 640px) {
+  .page-frame { width: min(100% - 20px, 500px); }
+  .topbar { margin-top: 12px; padding: 15px 13px; }
+  .brand { gap: 10px; }
+  .brand__icon { width: 40px; height: 40px; font-size: 23px; }
+  .brand h1 { font-size: clamp(15px, 4vw, 20px); }
+  .eyebrow { font-size: 7px; }
+  .hearts { font-size: 16px; }
+  .hero-landscape { height: 150px; margin: 13px 0 19px; }
+  .hero-landscape__hill { width: 180px; height: 105px; }
+  .hero-landscape__path { left: 25%; width: 50%; height: 67px; }
+  .hero-landscape__cloud--left { left: 1%; transform: scale(.65); transform-origin: top left; }
+  .hero-landscape__cloud--right { right: -12%; transform: scale(.52); }
+  .hero-landscape__sun { right: 12%; width: 42px; height: 42px; }
+  .hero-landscape__bush { width: 72px; height: 38px; }
+  .hero-landscape__bush--left { left: 3%; }
+  .hero-landscape__bush--right { right: 3%; }
+  .game-frame__top { font-size: 9px; }
+  .search-panel { grid-template-columns: 1fr; gap: 13px; padding: 18px; }
+  .search-form input { font-size: 13px; padding: 11px 6px; }
+  .search-form button { padding: 0 8px; font-size: 8px; }
+  .record__visual { padding: 14px; }
+  .scene { min-height: 290px; }
+  .scene__sprite { width: 175px; height: 175px; margin-top: 50px; }
+  .scene__sprite img { width: 155px; height: 155px; }
+  .scene__tree { transform: scale(.7); transform-origin: bottom left; }
+  .scene__tree--right { transform: scale(.55); }
+  .record__data { padding: 21px 19px 25px; }
+  .measures strong { font-size: 15px; }
+  .field-label { font-size: 9px; }
+  .stat { grid-template-columns: 87px 28px minmax(0, 1fr); gap: 6px; font-size: 10px; }
+  .footer { flex-wrap: wrap; justify-content: center; text-align: center; font-size: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .world-backdrop__sun, .world-backdrop__cloud,
+  .hero-landscape__sun, .hero-landscape__cloud, .hero-landscape__hill,
+  .hero-landscape__path, .hero-landscape__bush { animation: none !important; }
+  .scene, .scene::before, .scene__sky, .scene__tree, .scene__ground,
+  .scene__sprite img, .scene__label, .scene__particle, .scene__orb,
+  .scene__ridge, .scene__ridge::after, .scene__prop, .scene__weather,
+  .scene__light, .scene__bolt, .scene__ground::after,
+  .scene__sprite::before { animation: none !important; }
+  .scene[data-type="electric"] .scene__bolt { opacity: .55; }
+}

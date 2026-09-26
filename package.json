@@ -1,0 +1,25 @@
+{
+  "name": "pokedex-dsaw-20262",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "predev": "npm run build -w @retro-dex/core",
+    "dev": "vite --host 127.0.0.1",
+    "build": "npm run build -w @retro-dex/core && tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "@retro-dex/core": "file:packages/pokedex-core",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1"
+  }
+}
