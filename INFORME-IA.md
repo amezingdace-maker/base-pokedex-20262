@@ -3,7 +3,7 @@
 **Proyecto:** Pokédex DSAW · 2026-2
 
 **Estudiante:** David
-**Estado:** borrador para revisar y adaptar antes de entregar
+
 
 ## Objetivo
 
@@ -25,8 +25,12 @@ La IA puede introducir errores o interpretar mal una indicación. Por eso se rev
 
 ## Fuentes de datos y límites
 
-Los datos y sprites se consultan mediante [PokéAPI](https://pokeapi.co/). Las tipografías se cargan desde Google Fonts. La Pokédex necesita conexión a internet para mostrar esos recursos. El código fuente se prepara en un fork del repositorio base de DSAW.
+Los datos y sprites se consultan mediante [PokéAPI](https://pokeapi.co/). Las tipografías se cargan desde Google Fonts. La Pokédex necesita conexión a internet para mostrar esos recursos. El código fuente se publicó en un fork del repositorio base de DSAW.
 
 ## Reflexión personal del estudiante
 
-_Completar con palabras propias antes de entregar: ¿qué aprendí sobre componentes, estado, efectos y librerías? ¿Qué decisiones cambié después de revisar el resultado de Codex? ¿Qué pruebas hice yo personalmente?_
+Al principio no tenía muy claro para qué servía React. Incluso pensé que podía ser otro lenguaje. Con este proyecto entendí que sigo trabajando con JavaScript, pero que React me ayuda a dividir la interfaz en componentes y a actualizar lo que aparece en pantalla cuando cambian los datos. También entendí mejor para qué sirven `useState` y `useEffect`: uno guarda el estado de la búsqueda y el otro ayuda a cargar y sincronizar la información de los Pokémon. La librería local nos permitió separar esa lógica de la parte visual.
+
+La idea de que la Pokédex se sintiera antigua y nostálgica fue mía. Quería algo que recordara a juegos antiguos como Zelda y Mario, con paisajes pixelados, colores retro y escenarios distintos para cada tipo de Pokémon. No salió todo perfecto a la primera: al hacer cambios en el diseño llegué a notar que faltaban formas especiales, como las variantes de Charizard, y pedí que se corrigiera. Eso me mostró que una pantalla puede verse bien y aun así haber perdido una función importante.
+
+Codex me ayudó a construir y migrar el proyecto, y también a revisar la compilación y algunas búsquedas. Yo fui mirando el resultado en el navegador, dando indicaciones sobre la estética y señalando lo que no aparecía como esperaba. Me llevo la idea de que usar IA puede ahorrar tiempo, pero no reemplaza entender qué hace el código ni comprobar que la aplicación cumple lo que uno quería hacer.
