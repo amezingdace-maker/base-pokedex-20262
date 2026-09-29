@@ -1,5 +1,9 @@
 # Pokédex DSAW
 
+**Autor:** David Fernando Gómez
+
+**Sitio desplegado:** https://amezingdace-maker.github.io/base-pokedex-20262/
+
 Pokédex retro hecha con React, TypeScript y Vite. Consulta [PokéAPI](https://pokeapi.co/) por nombre, número o forma, y muestra tipos, habilidades, estadísticas y variantes. Los paisajes y animaciones cambian según el tipo del Pokémon.
 
 ## Ejecutar en el computador
